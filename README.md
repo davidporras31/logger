@@ -1,15 +1,16 @@
 # logger
-add logger class
-for make log and log file
+add logger class for make log and log file
 
 # use
-Logger::getMasterLogger()->
-log(loggerGravity::DEBUG, "hello");
+Logger::getMasterLogger()-><br>
+log(loggerGravity::DEBUG, "hello");<br>
 
 # min conf
-setAutoDump(true);
-setDumpToFile(true);
-setPathToFile("log.log");
-setSizeToAutoDump(2);
-setMinToPrint(loggerGravity::INFO);
-setMinToLog(loggerGravity::ERROR);
+use setPathToFile(); for configue the path to the log<br>
+
+other settings :<br>
+setAutoDump();<br>
+setDumpToFile();<br>
+setSizeToAutoDump();<br>
+setMinToPrint();<br>
+setMinToLog();<br>
