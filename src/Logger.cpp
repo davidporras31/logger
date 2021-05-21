@@ -1,3 +1,9 @@
+//********************************************************
+// author David PORRAS
+// date : 19/05/2021
+// file: Logger.cpp
+// class for log
+//********************************************************
 #include "../include/Logger.h"
 
 Logger Logger::masterLogger;
@@ -28,21 +34,28 @@ void Logger::dump()
 void Logger::log(loggerGravity gravity, string message)
 {
 	string strLog = "[" + loggerGravityToString(gravity) + "]" + message + "\n";
-	if (gravity >= this->minToLog)
+	#ifndef _DEBUG
+	if(gravity != loggerGravity::DEBUG)
 	{
-		this->buffer.push_back(strLog);
-		if (this->buffer.size() >= this->sizeToAutoDump)
+	#endif
+		if (gravity >= this->minToLog)
 		{
-			if (this->autoDump)
+			this->buffer.push_back(strLog);
+			if (this->buffer.size() >= this->sizeToAutoDump)
 			{
-				dump();
+				if (this->autoDump)
+				{
+					dump();
+				}
 			}
 		}
+		if (gravity >= this->minToPrint)
+		{
+			cout << strLog;
+		}
+	#ifndef _DEBUG
 	}
-	if (gravity >= this->minToPrint)
-	{
-		cout << strLog;
-	}
+	#endif
 }
 
 bool Logger::getDumpToFile()
