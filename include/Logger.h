@@ -50,7 +50,7 @@ public:
 	 *
 	 * This is a function for add log in buffer, write in console and dump the buffer if configue allow this, it's for log float value
 	*/
-	void log(loggerGravity gravity, string message, flaot value);
+	void log(loggerGravity gravity, string message, float value);
 
 	/** \brief This is a function for get the current configue of the dump in file
 	 *

@@ -58,7 +58,7 @@ void Logger::log(loggerGravity gravity, string message)
 	#endif
 }
 
-void Logger::log(loggerGravity gravity, string message, flaot value)
+void Logger::log(loggerGravity gravity, string message, float value)
 {
 	string val(value);
 	message += value;
