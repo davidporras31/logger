@@ -60,8 +60,7 @@ void Logger::log(loggerGravity gravity, string message)
 
 void Logger::log(loggerGravity gravity, string message, float value)
 {
-	string val(value);
-	message += value;
+	message += std::to_string(value);
 	this->log(gravity,message);
 }
 
