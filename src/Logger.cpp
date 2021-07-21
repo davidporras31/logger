@@ -58,6 +58,13 @@ void Logger::log(loggerGravity gravity, string message)
 	#endif
 }
 
+void Logger::log(loggerGravity gravity, string message, flaot value)
+{
+	string val(value);
+	message += value;
+	this->log(gravity,message);
+}
+
 bool Logger::getDumpToFile()
 {
 	return this->dumpToFile;
