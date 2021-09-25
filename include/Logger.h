@@ -40,17 +40,6 @@ public:
 	 * This is a function for add log in buffer, write in console and dump the buffer if configue allow this
 	*/
 	void log(loggerGravity gravity, string message);
-	/** \brief This is a function for add log in buffer and write in console, it's for log float value
-	 *
-	 * \param	gravity, the gravity of message
-	 *
-	 * \param	message, the message of log
-	 *
-	 * \param	value, the value of variable  
-	 *
-	 * This is a function for add log in buffer, write in console and dump the buffer if configue allow this, it's for log float value
-	*/
-	void log(loggerGravity gravity, string message, float value);
 
 	/** \brief This is a function for get the current configue of the dump in file
 	 *
