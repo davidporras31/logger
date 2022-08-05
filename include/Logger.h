@@ -1,3 +1,4 @@
+
 //********************************************************
 // author David PORRAS
 // date : 19/05/2021
@@ -7,148 +8,130 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <string>
 #include <vector>
-#include <iostream>
+#include <string>
 #include <fstream>
-
-using namespace std;
-
-enum loggerGravity
+#include <iostream>
+/**
+ enum containing all gravity for log
+ */
+enum LoggerGravity
 {
 	DEBUG,
 	INFO,
 	ERROR,
 	FATAL
 };
-
+/**
+ class use for log to the console and to file
+ */
 class Logger
 {
 public:
+	Logger();
 	~Logger();
-	/** \brief This is a function for dump log buffer in file
-	 *
-	 * This is a function for dump log buffer in file if configue allow this
+	/**
+	 * This is a function for dump log buffer in file if the Logger is configured to allow this
 	*/
 	void dump();
-	/** \brief This is a function for add log in buffer and write in console
+	/** 
+	 * This is a function for add log in buffer, write in console and dump the buffer if the Logger is configured to allow this
 	 *
 	 * \param	gravity, the gravity of message
 	 *
-	 * \param	message, the message of log 
-	 *
-	 * This is a function for add log in buffer, write in console and dump the buffer if configue allow this
+	 * \param	message, the message of log
 	*/
-	void log(loggerGravity gravity, string message);
+	void log(LoggerGravity gravity, std::string message);
 
-	/** \brief This is a function for get the current configue of the dump in file
+	/**
+	 * This is a function for get the if the Logger dump its buffer log in a file
 	 *
-	 * \return	the current configue of the auto dump in file
-	 *
-	 * This is a function for get the current configue of the auto dump in file
+	 * \return	if the Logger dump to file
 	*/
 	bool getDumpToFile();
-	/** \brief This is a function for get the current configue of the auto dump
+	/**
+	 * This is a function for get the if the Logger automatically dump its buffer log
 	 *
-	 * \return	the current configue of the auto dump
-	 *
-	 * This is a function for get the current configue of the auto dump
+	 * \return	if the Logger automatically dump
 	*/
 	bool getAutoDump();
-	/** \brief This is a function for get the current path of the log file
-	 *
-	 * \return	the current path of the log file
-	 *
-	 * This is a function for get the current path of the log file
+	/** 
+	 * This is a function for get the current configured file path where the Logger dump its buffer
+	 * 
+	 * \return	the current file path where the Logger dump its buffer
 	*/
-	string getPathToFile();
-	/** \brief This is a function for get the current configue of the buffer size before auto dump
+	std::string getPathToFile();
+	/** 
+	 * This is a function for get the current configured size of the buffer before auto dump the log
 	 *
-	 * \return	the current configue of the buffer size before auto dump
-	 *
-	 * This is a function for get the current configue of the buffer size before auto dump
+	 * \return	the current configured size of the buffer before auto dump
 	*/
 	size_t getSizeToAutoDump();
-	/** \brief This is a function for get the current configue of the minimal gravity of log write in console
+	/**
+	 * This is a function for get the current configured minimal gravity of log that will be written in the console
 	 *
 	 * \return	the current configue of the minimal gravity of log write in console
-	 *
-	 * This is a function for get the current configue of the minimal gravity of log write in console
 	*/
-	loggerGravity getMinToPrint();
-	/** \brief This is a function for get the current configue of the minimal gravity of log write in file
+	LoggerGravity getMinToPrint();
+	/**
+	 * This is a function for get the current configured minimal gravity of log that will be written in file
 	 *
 	 * \return	the current configue of the minimal gravity of log write in file
-	 *
-	 * This is a function for get the current configue of the minimal gravity of log write in file
 	*/
-	loggerGravity getMinToLog();
+	LoggerGravity getMinToLog();
 
-	/** \brief This is a function for configue the auto dump of buffer in file
+	/**
+	 * This is a function for configure if the Logger dump the buffer in file
 	 *
 	 * \param	dumpToFile, the new value
-	 *
-	 * This is a function for configue the auto dump of buffer in file
 	*/
 	void setDumpToFile(bool dumpToFile);
-	/** \brief This is a function for configue the auto dump of buffer
+	/**
+	 * This is a function for configure if the Logger auto dump the buffer
 	 *
 	 * \param	autoDump, the new value
-	 *
-	 * This is a function for configue the auto dump of buffer
 	*/
 	void setAutoDump(bool autoDump);
-	/** \brief This is a function for changing the path for log file
+	/**
+	 * This is a function for configure where the Logger dump
 	 *
 	 * \param	pathToFile, the path for log file
-	 *
-	 * This is a function for changing the path for log file
 	*/
-	void setPathToFile(string pathToFile);
-	/** \brief This is a function for changing the minimal size of buffer before dump
+	void setPathToFile(std::string pathToFile);
+	/**
+	 * This is a function for configure the size of buffer to auto dump
 	 *
-	 * \param	sizeToAutoDump, the minimal size of buffer before dump
-	 *
-	 * This is a function for changing the minimal size of buffer before dump in log file
+	 * \param	sizeToAutoDump, the minimal size of buffer before auto dump
 	*/
 	void setSizeToAutoDump(size_t sizeToAutoDump);
-	/** \brief This is a function for changing the minimal gravity of log to write in console
+	/**
+	 * This is a function for changing the minimal gravity of log to write in console
 	 *
 	 * \param	minToPrint, the minimal gravity of log to write in console
-	 *
-	 * This is a function for changing the minimal gravity of log to write in console
 	*/
-	void setMinToPrint(loggerGravity minToPrint);
-	/** \brief This is a function for changing the minimal gravity of log to write in log file
+	void setMinToPrint(LoggerGravity minToPrint);
+	/**
+	 * This is a function for changing the minimal gravity of log to write in log file
 	 *
 	 * \param	minToLog, the minimal gravity of log to write in log file
-	 *
-	 * This is a function for changing the minimal gravity of log to write in log file
 	*/
-	void setMinToLog(loggerGravity minToLog);
+	void setMinToLog(LoggerGravity minToLog);
 
-	/** \brief This is a function for geting the master logger
-	 *
-	 * This is a function for geting the master logger
-	*/
-	static Logger * getMasterLogger();
-	/** \brief This is a function for converting loggerGravity in string
+	/**
+	 * This is a function for converting loggerGravity in string
 	 *
 	 * \return	the name in string of loggerGravity
-	 *
-	 * This is a function for converting loggerGravity in string
 	*/
-	static string loggerGravityToString(loggerGravity gravity);
+	static std::string loggerGravityToString(LoggerGravity gravity);
 
 private:
-
 	bool dumpToFile;
 	bool autoDump;
-	string pathToFile;
+	std::string pathToFile;
 	size_t sizeToAutoDump;
-	loggerGravity minToPrint;
-	loggerGravity minToLog;
-	vector<string> buffer;
-	static Logger masterLogger;
+	LoggerGravity minToPrint;
+	LoggerGravity minToLog;
+	std::vector<std::string> buffer;
 };
+
 #endif // LOGGER_H

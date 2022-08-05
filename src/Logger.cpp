@@ -1,12 +1,21 @@
+
 //********************************************************
 // author David PORRAS
 // date : 19/05/2021
 // file: Logger.cpp
 // class for log
 //********************************************************
-#include "../include/Logger.h"
+#include "Logger.h"
 
-Logger Logger::masterLogger;
+Logger::Logger()
+{
+	this->dumpToFile = false;
+	this->autoDump = false;
+	this->pathToFile = "";
+	this->sizeToAutoDump = 0u;
+	this->minToPrint = LoggerGravity::DEBUG;
+	this->minToLog = LoggerGravity::DEBUG;
+}
 
 Logger::~Logger()
 {
@@ -17,7 +26,7 @@ void Logger::dump()
 {
 	if (this->dumpToFile)
 	{
-		ofstream file(this->pathToFile, ios::app);
+		std::ofstream file(this->pathToFile, std::ios::app);
 		while (this->buffer.size() != 0)
 		{
 			file << this->buffer.front();
@@ -31,19 +40,19 @@ void Logger::dump()
 	}
 }
 
-void Logger::log(loggerGravity gravity, string message)
+void Logger::log(LoggerGravity gravity, std::string message)
 {
-	string strLog = "[" + loggerGravityToString(gravity) + "]" + message + "\n";
 	#ifndef _DEBUG
-	if(gravity != loggerGravity::DEBUG)
-	{
+		if (gravity != loggerGravity::DEBUG)
+		{
 	#endif
+		std::string strLog = "[" + loggerGravityToString(gravity) + "]" + message + "\n";
 		if (gravity >= this->minToLog)
 		{
 			this->buffer.push_back(strLog);
-			if (this->buffer.size() >= this->sizeToAutoDump)
+			if (this->autoDump)
 			{
-				if (this->autoDump)
+				if (this->buffer.size() >= this->sizeToAutoDump)
 				{
 					dump();
 				}
@@ -51,7 +60,10 @@ void Logger::log(loggerGravity gravity, string message)
 		}
 		if (gravity >= this->minToPrint)
 		{
-			cout << strLog;
+			if (gravity == LoggerGravity::ERROR)
+				std::cerr << strLog;
+			else
+				std::cout << strLog;
 		}
 	#ifndef _DEBUG
 	}
@@ -68,7 +80,7 @@ bool Logger::getAutoDump()
 	return this->autoDump;
 }
 
-string Logger::getPathToFile()
+std::string Logger::getPathToFile()
 {
 	return this->pathToFile;
 }
@@ -78,12 +90,12 @@ size_t Logger::getSizeToAutoDump()
 	return this->sizeToAutoDump;
 }
 
-loggerGravity Logger::getMinToPrint()
+LoggerGravity Logger::getMinToPrint()
 {
 	return this->minToPrint;
 }
 
-loggerGravity Logger::getMinToLog()
+LoggerGravity Logger::getMinToLog()
 {
 	return this->minToLog;
 }
@@ -98,7 +110,7 @@ void Logger::setAutoDump(bool autoDump)
 	this->autoDump = autoDump;
 }
 
-void Logger::setPathToFile(string pathToFile)
+void Logger::setPathToFile(std::string pathToFile)
 {
 	this->pathToFile = pathToFile;
 }
@@ -108,36 +120,31 @@ void Logger::setSizeToAutoDump(size_t sizeToAutoDump)
 	this->sizeToAutoDump = sizeToAutoDump;
 }
 
-void Logger::setMinToPrint(loggerGravity minToPrint)
+void Logger::setMinToPrint(LoggerGravity minToPrint)
 {
 	this->minToPrint = minToPrint;
 }
 
-void Logger::setMinToLog(loggerGravity minToLog)
+void Logger::setMinToLog(LoggerGravity minToLog)
 {
 	this->minToLog = minToLog;
 }
 
-Logger * Logger::getMasterLogger()
+std::string Logger::loggerGravityToString(LoggerGravity gravity)
 {
-	return &masterLogger;
-}
-
-string Logger::loggerGravityToString(loggerGravity gravity)
-{
-	string ret;
+	std::string ret;
 	switch (gravity)
 	{
-	case loggerGravity::DEBUG:
+	case LoggerGravity::DEBUG:
 		ret = "DEBUG";
 		break;
-	case loggerGravity::INFO:
+	case LoggerGravity::INFO:
 		ret = "INFO";
 		break;
-	case loggerGravity::ERROR:
+	case LoggerGravity::ERROR:
 		ret = "ERROR";
 		break;
-	case loggerGravity::FATAL:
+	case LoggerGravity::FATAL:
 		ret = "FATAL";
 		break;
 	}
