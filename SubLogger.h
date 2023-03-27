@@ -15,6 +15,7 @@ class SubLogger :
     public Logger
 {
 public:
+	SubLogger();
 	/**
 	 * Constructor that link SubLogger to one Logger
 	 * 

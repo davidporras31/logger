@@ -7,6 +7,12 @@
 //********************************************************
 #include "SubLogger.h"
 
+SubLogger::SubLogger()
+{
+	this->logger = nullptr;
+	this->name = "";
+}
+
 SubLogger::SubLogger(Logger* master, std::string name)
 {
 	this->logger = master;
