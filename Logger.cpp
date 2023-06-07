@@ -43,7 +43,7 @@ void Logger::dump()
 void Logger::log(LoggerGravity gravity, std::string message)
 {
 	#ifndef _DEBUG
-		if (gravity != loggerGravity::DEBUG)
+		if (gravity != LoggerGravity::DEBUG)
 		{
 	#endif
 		std::string strLog = "[" + loggerGravityToString(gravity) + "]" + message + "\n";
