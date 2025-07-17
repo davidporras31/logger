@@ -16,7 +16,11 @@ void OutputLogger::dump()
 {
 	if (this->dumpToFile)
 	{
-		std::ofstream file(this->pathToFile, std::ios::app);
+		std::ofstream file(this->pathToFile, std::ofstream::out | std::ofstream::app);
+        if (!file.is_open())
+        {
+            throw std::runtime_error("Could not open log file: " + this->pathToFile);
+        }
 		while (this->buffer.size() != 0)
 		{
 			file << this->buffer.front();
