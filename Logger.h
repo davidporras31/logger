@@ -43,13 +43,11 @@ public:
 	virtual void log(Gravity gravity, std::string message) = 0;
 
 	/**
-	 * This is a function for converting loggerGravity in string
+	 * This is a function for converting Gravity in string
 	 *
-	 * \return	the name in string of loggerGravity
+	 * \return	the name in string of Gravity
 	*/
-	static std::string loggerGravityToString(Gravity gravity);
-
-private:
+	static std::string gravityToString(const Gravity gravity);
 
 };
 

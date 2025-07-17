@@ -8,23 +8,8 @@
 #include "Logger.h"
 
 
-std::string Logger::loggerGravityToString(Gravity gravity)
+std::string Logger::gravityToString(Gravity gravity)
 {
-	std::string ret;
-	switch (gravity)
-	{
-	case Gravity::DEBUG:
-		ret = "DEBUG";
-		break;
-	case Gravity::INFO:
-		ret = "INFO";
-		break;
-	case Gravity::ERROR:
-		ret = "ERROR";
-		break;
-	case Gravity::FATAL:
-		ret = "FATAL";
-		break;
-	}
-	return ret;
+	const std::string gravityNames[4] = {"DEBUG", "INFO", "ERROR", "FATAL"};
+	return gravityNames[gravity];
 }

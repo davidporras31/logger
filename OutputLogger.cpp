@@ -42,7 +42,7 @@ void OutputLogger::log(Gravity gravity, std::string message)
             return;
         }
 	#endif
-    std::string strLog = "[" + loggerGravityToString(gravity) + "]" + message + "\n";
+    std::string strLog = "[" + gravityToString(gravity) + "]" + message + "\n";
     if (gravity >= this->minToLog)
     {
         this->buffer.push_back(strLog);
